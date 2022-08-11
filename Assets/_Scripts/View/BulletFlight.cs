@@ -3,16 +3,15 @@ using _Scripts.Model;
 using UnityEngine;
 
 namespace _Scripts.View {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(CapsuleCollider))]
-    [RequireComponent(typeof(DestroyObject))]
+    [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+    [RequireComponent(typeof(DestroyObject), typeof(BulletSpecifications))]
     public class BulletFlight : MonoBehaviour {
-        [SerializeField] private Bullet bulletModel;
-
         private Rigidbody _rb;
+        private BulletSpecifications _bs;
 
         private void Start() {
             _rb = GetComponent<Rigidbody>();
+            _bs = GetComponent<BulletSpecifications>();
 
             Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerBullet"));
             Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("EnemyBullet")); 
@@ -22,7 +21,7 @@ namespace _Scripts.View {
         }
         
         private void FixedUpdate() {
-            _rb.velocity = transform.forward * bulletModel.Velocity;
+            _rb.velocity = transform.forward * _bs.Velocity;
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -35,7 +34,7 @@ namespace _Scripts.View {
                 var dir = Vector3.Reflect(transform.forward, contactPoint.normal);
                 transform.rotation = Quaternion.LookRotation(dir);
 
-                Instantiate(bulletModel.RicochetEffect, contactPoint.point, transform.rotation);
+                Instantiate(_bs.RicochetEffect, contactPoint.point, transform.rotation);
             }
         }
     }

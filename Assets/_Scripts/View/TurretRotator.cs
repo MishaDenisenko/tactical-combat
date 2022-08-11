@@ -17,7 +17,7 @@ namespace _Scripts.View {
         
         public void Rotate(Vector3 target, float deltaTime) {
             Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _ts.RotateVelocity * deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
         }
     }
 }
