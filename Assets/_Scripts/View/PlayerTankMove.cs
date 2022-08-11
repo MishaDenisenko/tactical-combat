@@ -50,7 +50,6 @@ namespace _Scripts.View {
             _wheelRotator.RotateWheels(velocity);
             var target = Quaternion.LookRotation(newPosition); 
             Rotate(target);
-            print($"{velocity}");
         }
 
         [Obsolete]

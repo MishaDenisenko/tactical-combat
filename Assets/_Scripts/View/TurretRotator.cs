@@ -19,5 +19,11 @@ namespace _Scripts.View {
             Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
         }
+        
+        public void Rotate(float angel, float deltaTime) {
+            var rotation = transform.rotation;
+            var targetRotation = Quaternion.AngleAxis(angel, Vector3.down) * rotation;
+            transform.rotation = Quaternion.Slerp(rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
+        }
     }
 }
