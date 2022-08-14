@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Rock
   - Joystick
+  - ShootButton
+  - Enemy
   layers:
   - Default
   - TransparentFX

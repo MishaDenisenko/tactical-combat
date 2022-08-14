@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3729867098458193179}
   - component: {fileID: 7520962408079175651}
   - component: {fileID: 3612763162978185344}
-  - component: {fileID: 8029474573279063316}
+  - component: {fileID: 7443851292187401907}
   m_Layer: 0
   m_Name: Yellow Bullet
   m_TagString: Untagged
@@ -114,10 +114,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 0.15
+  m_Radius: 0.04
+  m_Height: 0.25
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.21}
+  m_Center: {x: 0, y: 0, z: 0.2}
 --- !u!114 &7520962408079175651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,8 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3e45022d9b490ba79d278da91483c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionEffect: {fileID: 0}
---- !u!114 &8029474573279063316
+  explosionEffect: {fileID: 1000013462590818, guid: fb543a300725322488777f3bad1fb193, type: 3}
+--- !u!114 &7443851292187401907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,14 +152,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9094009511398482965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bfbe432504841a4850f99457e784bb9, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f6aa31125f4783b957fe1dc234be64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layer:
-    serializedVersion: 2
-    m_Bits: 1024
-  countOfRicochets: 3
-  damage: 100
-  velocity: 10
-  bulletPrefab: {fileID: 9094009511398482965}
-  ricochetEffect: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d, type: 3}
+  bulletSpecifications: {fileID: 11400000, guid: 0a0bc6cd90bd07744ad826748b921fc7, type: 2}

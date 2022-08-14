@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace _Scripts.Model {
     [CreateAssetMenu(fileName = "Bullet", menuName = "Managers/Bullet", order = 0)]
+    [Obsolete]
     public class Bullet : ScriptableObject {
         [SerializeField] private int countOfRicochets;
         [SerializeField] private int damage;

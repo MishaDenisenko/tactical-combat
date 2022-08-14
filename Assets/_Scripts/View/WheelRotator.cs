@@ -28,10 +28,13 @@ namespace _Scripts.View {
         }
         public void RotateWheels(float velocity) {
             foreach (var wheel in leftWheels) {
-                wheel.transform.Rotate(Vector3.right, velocity * Time.deltaTime);
+                wheel.transform.Rotate(Vector3.right, velocity);
+                print(velocity * Time.deltaTime);
             }
             foreach (var wheel in rightWheels) {
-                wheel.transform.Rotate(Vector3.right, velocity * Time.deltaTime);
+                wheel.transform.Rotate(Vector3.right, velocity);
+                print(wheel.transform.rotation);
+
             }
         }
     }

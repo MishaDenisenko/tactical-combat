@@ -3,16 +3,13 @@ using _Scripts.Controller;
 using UnityEngine;
 
 namespace _Scripts.Model {
+    [CreateAssetMenu(fileName = "TankSpecifications", menuName = "Managers/TankSpecifications")]
     public class TankSpecifications : Specifications {
         [SerializeField] private float velocity;
         [SerializeField] private float rotateVelocity;
         [SerializeField] private float turretRotateVelocity;
         [SerializeField] private float cooldown;
         [SerializeField] private int hitPoints;
-
-        private void Start() {
-            gameObject.layer = LayerController.GetLayer(layer);
-        }
 
         public float Velocity {
             get => velocity;

@@ -1,7 +1,9 @@
+using System;
 using _Scripts.Model.TankSpecificationsFolder;
 using UnityEngine;
 
 namespace _Scripts.Model {
+    [Obsolete]
     public class TankModel : MonoBehaviour {
         [SerializeField] private TankColor color;
         private enum TankColor {

@@ -1,24 +1,19 @@
 using System;
 using _Scripts.Model;
+using _Scripts.View.Abstract;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _Scripts.View {
-    [RequireComponent(typeof(TurretRotator))]
     
-    public class PlayerTurretRotator : MonoBehaviour{
+    public class PlayerTurretRotator : TurretRotator{
         private Camera _camera;
-        private TurretRotator _turretRotator;
-        private GunShoot _gunShoot;
         private RaycastHit _hit;
         private float _startPos;
         private float _lambda = 50f;
 
         private void Start() {
             _camera = Camera.main;
-            _gunShoot = GetComponentInChildren<GunShoot>();
-            
-            _turretRotator = GetComponent<TurretRotator>();
         }
 
         private void Update() {
@@ -31,7 +26,6 @@ namespace _Scripts.View {
 #elif UNITY_IOS
             if (Input.touchCount is > 0 and < 3) {
                 int lookIndex = GetLookTouchIndex(Input.touchCount);
-                print(lookIndex);
                 if (lookIndex != -1) {
 
                     if (true) {
@@ -52,7 +46,7 @@ namespace _Scripts.View {
                 if (false) RotateWithTarget();
             }
             else if (inputUp) {
-                if (false) _gunShoot.Shoot();
+                if (false) gunShoot.Shoot();
             }
             
             #endregion
@@ -69,32 +63,27 @@ namespace _Scripts.View {
         
                 case TouchPhase.Moved:
                     var angel = (GetTouchPosition(touch.position, cameraPosZ) - _startPos) * _lambda;
-                    _turretRotator.Rotate(angel, Time.deltaTime);
+                    Rotate(angel, Time.deltaTime);
                     _startPos = GetTouchPosition(touch.position, cameraPosZ);
                     break;
             }
         }
 
+        [Obsolete]
         private void RotateWithTarget() {
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
                 
             if (Physics.Raycast(ray, out _hit) && !_hit.collider.tag.Equals("Joystick")) {
                 Vector3 target = new Vector3(_hit.point.x, transform.position.y, _hit.point.z);
-                _turretRotator.Rotate(target, Time.deltaTime);
+                Rotate(target, Time.deltaTime);
             }
-            
         }
         
         private int GetLookTouchIndex(int touchCount) {
             for (int i = 0; i < touchCount; i++) {
-                var ray = _camera.ScreenPointToRay(Input.mousePosition);
-                print($"{Input.mousePosition} - mp");
-                if (Physics.Raycast(ray, out var hit)) {
-                    if (hit.collider.tag.Equals("Joystick")) print($"{i} - j");
-                    if (!hit.collider.tag.Equals("Joystick")) {
-                        print($"{i} - nj");
-                        return i;
-                    }
+                var ray = _camera.ScreenPointToRay(Input.GetTouch(i).position);
+                if (Physics.Raycast(ray, out var hit) && !hit.collider.tag.Equals("Joystick")) {
+                    return i;
                 }
             }
 

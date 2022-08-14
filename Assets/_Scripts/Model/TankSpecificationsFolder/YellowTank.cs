@@ -1,4 +1,7 @@
+using System;
+
 namespace _Scripts.Model.TankSpecificationsFolder {
+    [Obsolete]
     public struct YellowTank{
         public static float Velocity { get; set; } = 7;
 

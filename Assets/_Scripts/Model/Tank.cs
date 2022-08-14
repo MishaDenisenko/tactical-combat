@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace _Scripts.Model {
     [CreateAssetMenu(fileName = "Tank", menuName = "Managers/Tank")]
+    [Obsolete]
     public class Tank : ScriptableObject{
         [SerializeField] protected float velocity;
         [SerializeField] protected float rotateVelocity;
