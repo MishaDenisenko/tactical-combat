@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace _Scripts.View {
+namespace _Scripts.View.Player {
     public class ShootButton : MonoBehaviour {
         private GunShoot _gunShoot;
 

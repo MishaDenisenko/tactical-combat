@@ -41,7 +41,10 @@ namespace _Scripts.View {
         }
 
         private void OnTriggerEnter(Collider other) {
-            print("trigger" + other.gameObject);
+            if (other.tag.Equals("Enemy")) {
+                other.gameObject.GetComponent<TankInstance>().Hit(_bs.Damage);
+                _destroyObject.BlowUp();
+            }
         }
 
         private void OnCollisionEnter(Collision collision) {
@@ -57,10 +60,6 @@ namespace _Scripts.View {
                     return;
                 }
 
-                _destroyObject.BlowUp();
-            }
-            else if (collision.collider.tag.Equals("Enemy")) {
-                collision.gameObject.GetComponent<TankInstance>().Hit(_bs.Damage);
                 _destroyObject.BlowUp();
             }
         }

@@ -10,6 +10,8 @@ namespace _Scripts.View.Abstract {
         public TankSpecifications TankSpecifications {
             set => _ts = value;
         }
+        
+        public BulletSpecifications BulletSpecifications { set; get; }
 
         public GunShoot GunShoot {
             set => gunShoot = value;
@@ -21,13 +23,17 @@ namespace _Scripts.View.Abstract {
         }
 
         protected void Rotate(Vector3 target, float deltaTime) {
-            Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(target);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
+        }
+        
+        protected void Rotate(Quaternion target, float deltaTime) {
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, _ts.TurretRotateVelocity * deltaTime);
         }
 
         protected void Rotate(float angel, float deltaTime) {
             var rotation = transform.rotation;
-            var targetRotation = Quaternion.AngleAxis(angel, Vector3.down) * rotation;
+            var targetRotation = rotation * Quaternion.AngleAxis(angel, Vector3.up);
             transform.rotation = Quaternion.Slerp(rotation, targetRotation, _ts.TurretRotateVelocity * deltaTime);
         }
     }

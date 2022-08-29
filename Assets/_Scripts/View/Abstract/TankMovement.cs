@@ -40,7 +40,8 @@ namespace _Scripts.View.Abstract {
             var newPosition = new Vector3(horizontal, 0, vertical);
             var velocity = _tankSpecifications.Velocity;
             
-            _rb.MovePosition(transform.position + newPosition * velocity * Time.deltaTime);
+            // _rb.MovePosition(transform.position + newPosition * velocity * Time.deltaTime);
+            _rb.velocity = transform.GetChild(0).forward * MathF.Sqrt(MathF.Pow(newPosition.x, 2) + MathF.Pow(newPosition.z, 2)) * velocity;
             _wheelRotator.RotateWheels(velocity);
             var target = Quaternion.LookRotation(newPosition); 
             Rotate(target);

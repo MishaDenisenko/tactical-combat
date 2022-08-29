@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1024
   countOfRicochets: 3
   damage: 100
   velocity: 10
   bulletPrefab: {fileID: 9094009511398482965, guid: bfc850b85fdb11b429a2f4037baa757d, type: 3}
   ricochetEffect: {fileID: 1000010355441670, guid: 02a509a7fa70ed740ba4197e20c5d32d, type: 3}
-  destroyEffect: {fileID: 1000013462590818, guid: fb543a300725322488777f3bad1fb193, type: 3}

@@ -1,10 +1,8 @@
 using System;
-using _Scripts.Model;
 using _Scripts.View.Abstract;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace _Scripts.View {
+namespace _Scripts.View.Player {
     
     public class PlayerTurretRotator : TurretRotator{
         private Camera _camera;
@@ -54,19 +52,20 @@ namespace _Scripts.View {
 
         private void RotateWithAngel(int lookIndex) {
             var touch = Input.GetTouch(lookIndex);
-            var cameraPosZ = _camera.transform.position.z;
+            var angel = 0f;
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    _startPos = GetTouchPosition(touch.position, cameraPosZ);
+                    _startPos = touch.position.x;
                     break;
         
                 case TouchPhase.Moved:
-                    var angel = (GetTouchPosition(touch.position, cameraPosZ) - _startPos) * _lambda;
-                    Rotate(angel, Time.deltaTime);
-                    _startPos = GetTouchPosition(touch.position, cameraPosZ);
+                    angel = touch.position.x - _startPos;
                     break;
             }
+
+            Rotate(angel, Time.deltaTime);
+            _startPos = touch.position.x;
         }
 
         [Obsolete]

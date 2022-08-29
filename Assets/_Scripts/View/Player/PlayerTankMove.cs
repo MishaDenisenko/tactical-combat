@@ -1,9 +1,7 @@
-using System;
-using _Scripts.Model;
 using _Scripts.View.Abstract;
 using UnityEngine;
 
-namespace _Scripts.View {
+namespace _Scripts.View.Player {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(WheelRotator))]
     public class PlayerTankMove : TankMovement {

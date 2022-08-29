@@ -13,10 +13,6 @@ namespace _Scripts.View {
             set => _tankModel = value;
         }
 
-        private void Start() {
-            // _ts = GetComponent<TankSpecifications>();
-        }
-
         [Obsolete("old method")]
         public void RotateWheels(float left, float right) {
             foreach (var wheel in leftWheels) {
@@ -29,12 +25,9 @@ namespace _Scripts.View {
         public void RotateWheels(float velocity) {
             foreach (var wheel in leftWheels) {
                 wheel.transform.Rotate(Vector3.right, velocity);
-                print(velocity * Time.deltaTime);
             }
             foreach (var wheel in rightWheels) {
                 wheel.transform.Rotate(Vector3.right, velocity);
-                print(wheel.transform.rotation);
-
             }
         }
     }

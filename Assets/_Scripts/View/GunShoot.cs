@@ -15,6 +15,7 @@ namespace _Scripts.View {
 
         private bool _reload = true;
         private bool _canShoot;
+        private Coroutine _coroutine;
 
         [Obsolete]
         public TankSpecifications TankSpecifications {
@@ -31,14 +32,17 @@ namespace _Scripts.View {
 
         private void Start() {
             _gunRecoil = GetComponent<GunRecoil>();
+            _coroutine = StartCoroutine(_tankController.DoReload());
         }
 
         private void FixedUpdate() {
-            if (_reload) _canShoot = _tankController.DoReload(ref _reload);
+            if (!_tankController.Reload) {
+                StopCoroutine(_coroutine);
+            }
         }
 
         public void Shoot() {
-            if (_canShoot) {
+            if (!_tankController.Reload) {
                 var tr = transform.GetChild(0);
                 var pos = tr.position;
                 var bullet = Instantiate(_bs.BulletPrefab, pos, tr.rotation);
@@ -46,7 +50,8 @@ namespace _Scripts.View {
 
                 bullet.layer = LayerController.GetLayer(_bs.Layer);
                 if (!_gunRecoil.DoRecoil) _gunRecoil.DoRecoil = true;
-                _reload = true;
+                _coroutine = StartCoroutine(_tankController.DoReload());
+                
             }
         }
 

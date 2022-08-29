@@ -1,6 +1,8 @@
 using _Scripts.Controller;
 using _Scripts.Model;
 using _Scripts.View.Abstract;
+using _Scripts.View.Bot;
+using _Scripts.View.Player;
 using UnityEngine;
 
 namespace _Scripts.View.Instance {
@@ -19,6 +21,7 @@ namespace _Scripts.View.Instance {
         private GunShoot _gunShoot;
         private DestroyObject _tankDestruction;
         private TurretRotator _turretRotator;
+        private BotTurretRotator _botTurretRotator;
 
         private void Awake() {
             _tankController = new TankController();
@@ -28,6 +31,7 @@ namespace _Scripts.View.Instance {
             _gunShoot = transform.GetChild(1).GetComponentInChildren<GunShoot>();
             _tankDestruction = GetComponent<DestroyObject>();
             _turretRotator = GetComponentInChildren<TurretRotator>();
+            _botTurretRotator = transform.GetChild(1).GetComponentInChildren<BotTurretRotator>();
             
             UpdateValues();
         }
@@ -60,9 +64,13 @@ namespace _Scripts.View.Instance {
 
             if (_turretRotator) {
                 _turretRotator.TankSpecifications = tankSpecifications;
+                _turretRotator.BulletSpecifications = bulletSpecifications;
                 _turretRotator.GunShoot = _gunShoot;
             }
-            
+
+            if (_botTurretRotator) {
+                _botTurretRotator.TankController = _tankController;
+            }
             
         }
 
