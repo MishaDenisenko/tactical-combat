@@ -41,8 +41,16 @@ namespace _Scripts.View {
         }
 
         private void OnTriggerEnter(Collider other) {
-            if (other.tag.Equals("Enemy")) {
-                other.gameObject.GetComponent<TankInstance>().Hit(_bs.Damage);
+            string enemyTag;
+            switch (gameObject.layer) {
+                case 10: enemyTag = "Enemy"; break;
+                case 11: enemyTag = "Player"; break;
+                default: enemyTag = String.Empty; break;
+            }
+            
+            if (!String.IsNullOrEmpty(enemyTag) && other.tag.Equals(enemyTag)) {
+                print(other.gameObject);
+                other.gameObject.GetComponentInParent<TankInstance>().Hit(_bs.Damage);
                 _destroyObject.BlowUp();
             }
         }

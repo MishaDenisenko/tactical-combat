@@ -5,7 +5,7 @@ using Random = System.Random;
 
 namespace _Scripts.Controller {
     public class BotController {
-        private TankController _tankController;
+        private readonly TankController _tankController;
         private EBodyActionType _bodyActionType;
         private ETurretActionType _turretActionType;
 
@@ -42,8 +42,8 @@ namespace _Scripts.Controller {
                     case 2:
                     case 3:
                     case 4:
-                        // _turretActionType = ETurretActionType.None;
-                        // break;
+                        _turretActionType = ETurretActionType.None;
+                        break;
                     case 5:
                     case 6:
                     case 7:

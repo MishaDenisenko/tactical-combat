@@ -9,33 +9,38 @@ using Random = UnityEngine.Random;
 namespace _Scripts.View.Bot {
     [RequireComponent(typeof(NavMeshAgent))]
     public class BotTankMove : TankMovement {
-        [SerializeField] private List<Transform> botPositions; 
+        [SerializeField] private GameObject botPositions;
+        [SerializeField] private float distance;
 
-        private NavMeshAgent _navMeshAgent;
-        public bool _move = true;
-        private bool q = true;
         private List<BotPosition> _botPositions;
+        
+        private NavMeshAgent _navMeshAgent;
         private NavMeshPath _path;
         private Vector3 _destination;
-        
         private void Start() {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _path = new NavMeshPath();
 
             _botPositions = BotDestination.BotPositions;
-            // foreach (var position in botPositions) {
-            //     _botPositions.Add(new BotPosition(position.position));
+            // int id = 0;
+            // foreach (var position in botPositions.transform.) {
+            //     _botPositions.Add(new BotPosition(position.position, ++id));
             // }
+
+            var player = ~(1 << 8);
+            var enemy = ~(1 << 9);
+
+            // var path = Path(_botPositions[0], _botPositions[9]);
+            // // print(path);
+            // print($"{_botPositions[0].Id} -> {_botPositions[9].Id}" + "{\n");
+            // foreach (var position in path) {
+            //     print(position.Id);
+            // }
+            // print("\n}");
         }
 
         private void Update() {
 
-            if (q) {
-                var _coroutine = SetDestination(2000);
-                StartCoroutine(_coroutine);
-                q = false;
-            }
-            
 
             if (_navMeshAgent.velocity != Vector3.zero) transform.rotation = Quaternion.LookRotation(_navMeshAgent.velocity);
         }
@@ -46,7 +51,7 @@ namespace _Scripts.View.Bot {
             _destination = point.Position;
             
             if (point.Activate) CheckBotPriority(point.Bot, point.Position);
-            else  point.SetPosition(this);
+            // else  point.SetPosition(this);
 
             // MoveToPoint();
             
@@ -80,5 +85,32 @@ namespace _Scripts.View.Bot {
             
             return Vector3.zero;
         }
+        
+        private List<BotPosition> Path(BotPosition first, BotPosition target)
+        {
+            List<BotPosition> visited = new ();
+            List<BotPosition> path = new ();
+            Queue<BotPosition> frontier = new ();
+            frontier.Enqueue(first);
+            
+            while (frontier.Count > 0)
+            {
+                var current = frontier.Dequeue();
+                print(current.Id + " - cur");
+                visited.Add(current);
+                if (!path.Contains(current)) path.Add(current);
+                
+                if (current == target)
+                    return path;
+
+                var neighbours = current.NearPoints;
+                foreach(var neighbour in neighbours)
+                    if (!visited.Contains(neighbour))
+                        frontier.Enqueue(neighbour);
+            }
+
+            return null;
+        }
+
     }
 }
